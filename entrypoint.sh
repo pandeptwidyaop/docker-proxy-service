@@ -29,18 +29,13 @@ check_env() {
         exit 1
     fi
 
-    if [ -z $SSH_KEY ]; then
-        echo "[$(date +"%T")] ${RED}SSH_KEY variable not defined"
+    if [ -z $SSH_KEY_BASE64 ]; then
+        echo "[$(date +"%T")] ${RED}SSH_KEY_BASE64 variable not defined"
         exit 1
     fi
 
     if [ -z $PORT ]; then
         echo "[$(date +"%T")] ${RED}PORT variable not defined"
-        exit 1
-    fi
-
-    if [ -z $TO_PORT ]; then
-        echo "[$(date +"%T")] ${RED}TO_PORT variable not defined"
         exit 1
     fi
 }
@@ -64,19 +59,15 @@ EOF
 
 transfer_ssh_key() {
     echo "$DATE Transfering SSH KEY to id_rsa"
-    echo $SSH_KEY >~/.ssh/id_rsa
+    echo $SSH_KEY_BASE64 | base64 -d >~/.ssh/id_rsa
     chmod -R 600 ~/.ssh/
 }
 
 start_tunnel() {
-    ssh -vv \
-        -o StrictHostKeyChecking=no \
+    echo "$DATE Creating tunnel to port : 8866"
+    ssh -o StrictHostKeyChecking=no \
         -N ${HOST} \
-        -L *:${TO_PORT}:127.0.0.1:${PORT}
-
-    while [true]; do
-        sleep 30
-    done
+        -L *:8866:127.0.0.1:${PORT}
 }
 
 main
