@@ -64,9 +64,10 @@ transfer_ssh_key() {
 }
 
 start_tunnel() {
-    echo "$DATE Creating tunnel to port : 8866"
+    echo "$DATE Creating tunnel from $HOST:$SSH_PORT port $PORT to port : 8866"
     ssh -o StrictHostKeyChecking=no \
         -N ${HOST} \
+        -p ${SSH_PORT} \
         -L *:8866:127.0.0.1:${PORT}
 }
 
