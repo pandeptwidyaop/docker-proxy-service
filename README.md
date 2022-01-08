@@ -1,6 +1,6 @@
 # Docker Proxy Service
 ## About
-This docker image help you to expose port securely on `Virtual Machine` to a container using SSH.
+This docker image help you to expose port securely on `Virtual Machine` to a container over SSH.
 
 ## Usage
 
@@ -20,7 +20,7 @@ Available environment variable
 docker pull pandeptwidyaop/proxy-service
 ```
 
-### Docker command
+### Docker Run Command
 ```sh
 docker run --env HOST=my-mysql-server.com \
     --env SSH_PORT=22 \
