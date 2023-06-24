@@ -1,5 +1,5 @@
 # Docker Proxy Service
-Proxy your public/private service to your container
+Proxy your private service over SSH through your container
 ## About
 This docker image help you to expose port securely on `Virtual Machine` to a container over SSH.
 
